@@ -1,0 +1,1604 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sudeep | Vibe-Coded Portfolio</title>
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Google Fonts: Plus Jakarta Sans, Caveat, DM Sans, Manrope -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+            display: ['"Manrope"', 'sans-serif'],
+            body: ['"DM Sans"', 'sans-serif'],
+            handwriting: ['"Caveat"', 'cursive'],
+          },
+          colors: {
+            ink: '#0b1e43',
+            muted: '#536b91',
+            brandBlue: '#0875ff',
+            navy: {
+              800: '#162542',
+              900: '#0b1e43',
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    :root {
+      --ink: #0b1e43;
+      --muted: #536b91;
+      --blue: #0875ff;
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background: #ffffff;
+      color: var(--ink);
+      font-family: 'Plus Jakarta Sans', sans-serif;
+    }
+
+    .dark body {
+      background: #0b1324;
+      color: #f1f5f9;
+    }
+
+    /* Hide scrollbar for Chrome, Safari and Opera */
+    .no-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+    .no-scrollbar {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+
+    /* Hero bottom fade */
+    .hero-fade-bottom {
+      background: linear-gradient(to bottom, rgba(255,255,255,0) 78%, rgba(255,255,255,1) 100%);
+    }
+    .dark .hero-fade-bottom {
+      background: linear-gradient(to bottom, rgba(11,19,36,0) 78%, rgba(11,19,36,1) 100%);
+    }
+
+    /* Scroll Reveal Animations */
+    .reveal {
+      opacity: 0;
+      transform: translateY(14px);
+      transition: opacity 0.65s ease, transform 0.65s cubic-bezier(0.2, 0.75, 0.2, 1);
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* =========================================================================
+       EDUCATION & CAREER JOURNEY SECTION (EXACT REPLICA OF TARGET IMAGE)
+       ========================================================================= */
+    .journey-replica-section {
+      position: relative;
+      width: 100%;
+      overflow: hidden;
+      background: #ffffff;
+      padding-top: 24px;
+    }
+    .dark .journey-replica-section {
+      background: #0b1324;
+    }
+
+    /* Animated road dash flow on the SVG fallback */
+    @keyframes roadDashFlow {
+      to {
+        stroke-dashoffset: -28;
+      }
+    }
+    .road-center-dashes {
+      animation: roadDashFlow 1.4s linear infinite;
+    }
+
+    /* Subtle bobbing on the teardrop pins */
+    @keyframes pinFloat {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-3px); }
+    }
+    .pin-marker {
+      animation: pinFloat 3.2s ease-in-out infinite;
+    }
+  
+    .experience-carousel { cursor: grab; }
+    .experience-carousel:active { cursor: grabbing; }
+    .experience-card { flex: 0 0 300px; min-width: 0; }
+    @media (min-width: 768px) {
+      .experience-card { flex-basis: 330px; }
+    }
+    @media (min-width: 1280px) {
+      .experience-card { flex-basis: calc((100% - 3rem) / 4); }
+    }
+    [data-cert-title]:focus-visible { outline: 2px solid #0875ff; outline-offset: 3px; }
+
+    /* Navigation: highlight the currently visible section with an underline. */
+    .nav-link {
+      display: inline-flex;
+      align-items: center;
+      min-height: 38px;
+      padding: 0 1px 2px;
+      white-space: nowrap;
+      border-bottom: 2px solid transparent;
+      color: inherit;
+      transition: color .2s ease, border-color .2s ease;
+    }
+    .nav-link:hover, .nav-link.is-active {
+      color: #0875ff;
+      border-bottom-color: #0875ff;
+    }
+    .dark .nav-link:hover, .dark .nav-link.is-active {
+      color: #60a5fa;
+      border-bottom-color: #60a5fa;
+    }
+    [id] { scroll-margin-top: 76px; }
+    @media (max-width: 760px) {
+      #top-nav { max-width: 56vw; gap: 11px; }
+      #top-nav .nav-link { font-size: 10px; }
+    }
+    @media (max-width: 420px) {
+      header .max-w-\[1560px\] { padding-left: 10px; padding-right: 10px; gap: 8px; }
+      header a[download] span { display: none; }
+      #top-nav { max-width: 59vw; gap: 9px; }
+    }
+
+  </style>
+</head>
+<body class="antialiased selection:bg-blue-600 selection:text-white transition-colors duration-300">
+
+  <!-- ==========================================
+       1. TOP NAVIGATION BAR
+       ========================================== -->
+  <header class="sticky top-0 z-50 bg-white/90 dark:bg-slate-900/90 backdrop-blur-md border-b border-slate-200/70 dark:border-slate-800">
+    <div class="max-w-[1560px] mx-auto px-6 lg:px-12 h-14 flex items-center justify-between">
+      <!-- Brand Logo -->
+      <a href="#home" class="font-display text-xl font-extrabold tracking-tight text-navy-900 dark:text-white">
+        Sudeep
+      </a>
+
+      <!-- Nav Links -->
+      <nav id="top-nav" aria-label="Main navigation"
+        class="flex items-center gap-3 sm:gap-5 lg:gap-7 text-[11px] sm:text-xs font-medium text-slate-600 dark:text-slate-300 overflow-x-auto no-scrollbar">
+        <a href="#home" data-nav-link class="nav-link">Home</a>
+        <a href="#research" data-nav-link class="nav-link">Research</a>
+        <a href="#experience" data-nav-link class="nav-link">Experience</a>
+        <a href="#certifications" data-nav-link class="nav-link">Certifications</a>
+        <a href="#skills" data-nav-link class="nav-link">Skills &amp; Tools</a>
+        <a href="#journey" data-nav-link class="nav-link">Journey</a>
+        <a href="#contact" data-nav-link class="nav-link">Contact</a>
+      </nav>
+
+      <!-- CTA & Theme Toggle -->
+      <div class="flex items-center space-x-3">
+        <a href="assets/Sudeep_Resume.pdf" download class="inline-flex items-center gap-2 bg-navy-800 hover:bg-navy-900 text-white text-xs font-semibold px-4 py-2 rounded-lg shadow-sm transition">
+          <span>Download Resume</span>
+          <i data-lucide="download" class="w-3.5 h-3.5"></i>
+        </a>
+        <button id="theme-toggle" aria-label="Toggle Dark Mode" class="p-2 rounded-lg border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 transition">
+          <i data-lucide="moon" class="w-4 h-4 block dark:hidden"></i>
+          <i data-lucide="sun" class="w-4 h-4 hidden dark:block text-amber-400"></i>
+        </button>
+      </div>
+    </div>
+  </header>
+
+
+  <!-- ==========================================
+       2. HERO SECTION
+       ========================================== -->
+  <section id="home" class="relative w-full min-h-[390px] lg:min-h-[435px] flex items-center overflow-hidden border-b border-slate-200/60 dark:border-slate-800">
+    
+    <!-- IMPORTABLE IMAGE: Hero Background -->
+    <img 
+      src="Images/Itanagar_BG_hero.jpg"
+      alt="Itanagar mountain valley at daylight"
+      class="absolute inset-0 w-full h-full object-cover object-center z-0"
+      style="object-position: center 56%;"
+    />
+    
+    <!-- Readability Gradient Overlay -->
+    <div class="absolute inset-0 z-10 bg-gradient-to-r from-white/95 via-white/58 to-white/18 dark:from-slate-900/95 dark:via-slate-900/70 dark:to-slate-900/30"></div>
+    <div class="absolute inset-0 hero-fade-bottom z-10"></div>
+
+    <!-- Main Hero Content -->
+    <div class="relative z-20 max-w-[1560px] mx-auto w-full px-6 lg:px-12 py-7 grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
+      
+      <!-- Left Column: Intro & Credentials -->
+      <div class="lg:col-span-7 space-y-3.5 reveal visible">
+        <div>
+          <p class="text-base font-medium text-slate-700 dark:text-slate-300">Hi, I'm</p>
+          <div class="flex items-center gap-3 mt-0.5">
+            <h1 class="font-display text-4xl sm:text-5xl font-extrabold tracking-tight text-navy-900 dark:text-white leading-none">
+              Sudeep<span class="text-brandBlue">.</span>
+            </h1>
+            <img src="Images/my-img.jpg" data-local-image="Images/my-img" alt="Sudeep" class="w-12 h-12 sm:w-14 sm:h-14 rounded-full object-cover object-top border-2 border-white shadow-md ring-1 ring-blue-100" />
+          </div>
+        </div>
+
+        <div class="space-y-2.5 pt-1">
+          <!-- Credential 1 -->
+          <div class="flex items-center gap-3">
+            <div class="w-9 h-9 rounded-full bg-white/95 dark:bg-blue-900/50 border border-blue-200 dark:border-blue-700 flex items-center justify-center text-brandBlue dark:text-blue-400 shrink-0 shadow-sm">
+              <i data-lucide="graduation-cap" class="w-4 h-4"></i>
+            </div>
+            <div>
+              <h2 class="font-display text-sm sm:text-base font-extrabold text-navy-900 dark:text-white leading-tight">MTech in Artificial Intelligence</h2>
+              <p class="text-xs text-muted dark:text-slate-300">Delhi Technological University (DTU)</p>
+            </div>
+          </div>
+
+          <!-- Credential 2 -->
+          <div class="flex items-center gap-3">
+            <div class="w-9 h-9 rounded-full bg-white/95 dark:bg-emerald-900/50 border border-emerald-200 dark:border-emerald-700 flex items-center justify-center text-emerald-600 dark:text-emerald-400 shrink-0 shadow-sm">
+              <i data-lucide="briefcase" class="w-4 h-4"></i>
+            </div>
+            <div>
+              <h2 class="font-display text-sm sm:text-base font-extrabold text-navy-900 dark:text-white leading-tight">Analyst – Risk Transformation</h2>
+              <p class="text-xs text-muted dark:text-slate-300">Barclays, Noida</p>
+            </div>
+          </div>
+
+          <!-- Credential 3 -->
+          <div class="flex items-center gap-3">
+            <div class="w-9 h-9 rounded-full bg-white/95 dark:bg-purple-900/50 border border-purple-200 dark:border-purple-700 flex items-center justify-center text-purple-600 dark:text-purple-400 shrink-0 shadow-sm">
+              <i data-lucide="cpu" class="w-4 h-4"></i>
+            </div>
+            <div>
+              <h2 class="font-display text-sm sm:text-base font-extrabold text-navy-900 dark:text-white leading-tight">GATE 2023 Qualified</h2>
+              <p class="text-xs text-slate-700 dark:text-slate-300 font-medium">
+                AIR 3067 <span class="mx-1.5 text-slate-400">|</span> Marks 45.67
+                <!-- AIR 3067 <span class="mx-1.5 text-slate-400">|</span> Marks 45.67 <span class="mx-1.5 text-slate-400">|</span> Real-world Applications -->
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Social links -->
+        <div class="flex flex-wrap items-center gap-2.5 pt-2" aria-label="Social and contact links">
+          <!-- <a href="https://www.linkedin.com/in/sudeep-acharjee/" target="_blank" rel="noopener noreferrer"
+             aria-label="LinkedIn profile" title="LinkedIn"
+             class="inline-flex items-center gap-2 rounded-full border border-slate-200 dark:border-slate-700 bg-white/90 dark:bg-slate-800/90 px-3.5 py-2 text-xs font-semibold text-navy-900 dark:text-white shadow-sm hover:-translate-y-0.5 hover:border-brandBlue transition">
+            <i data-lucide="linkedin" class="w-4 h-4 text-[#0A66C2]"></i><span>LinkedIn</span>
+          </a> -->
+
+          <a href="https://www.linkedin.com/in/sudeep-acharjee/"
+            target="_blank" rel="noopener noreferrer"
+            aria-label="LinkedIn profile" title="LinkedIn"
+            class="inline-flex items-center gap-2 rounded-full border border-slate-200 dark:border-slate-700 bg-white/90 dark:bg-slate-800/90 px-3.5 py-2 text-xs font-semibold text-navy-900 dark:text-white shadow-sm hover:-translate-y-0.5 hover:border-brandBlue transition">
+
+            <img src="Logo/linkdin.png" alt="LinkedIn" class="w-4 h-4 object-contain" />
+            <span>LinkedIn</span>
+          </a>
+
+          <!-- <a href="https://github.com/" target="_blank" rel="noopener noreferrer"
+             aria-label="GitHub profile — replace with your GitHub profile URL" title="GitHub"
+             class="inline-flex items-center gap-2 rounded-full border border-slate-200 dark:border-slate-700 bg-white/90 dark:bg-slate-800/90 px-3.5 py-2 text-xs font-semibold text-navy-900 dark:text-white shadow-sm hover:-translate-y-0.5 hover:border-brandBlue transition">
+            <i data-lucide="github" class="w-4 h-4"></i><span>GitHub</span>
+          </a> -->
+          <a href="#contact" aria-label="Contact by email" title="Email"
+             class="inline-flex items-center gap-2 rounded-full border border-slate-200 dark:border-slate-700 bg-white/90 dark:bg-slate-800/90 px-3.5 py-2 text-xs font-semibold text-navy-900 dark:text-white shadow-sm hover:-translate-y-0.5 hover:border-brandBlue transition">
+            <i data-lucide="mail" class="w-4 h-4 text-brandBlue"></i><span>Email</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- Right Column: Handwritten Quote & Floating Action Pillars -->
+      <div class="lg:col-span-5 flex flex-col items-start lg:items-end justify-between space-y-5 reveal visible">
+        <div class="font-handwriting text-2xl sm:text-3xl text-navy-900 dark:text-amber-200 -rotate-6 transform lg:mr-24 drop-shadow-sm leading-tight">
+          "Curious mind,<br />
+          <span class="ml-3">better tools,</span><br />
+          <span class="ml-6">more meaningful impact."</span>
+        </div>
+
+        <ul class="space-y-2.5 text-white drop-shadow-[0_2px_4px_rgba(0,0,0,0.85)] lg:mr-6">
+          <li class="flex items-center gap-3 text-sm font-semibold tracking-wide">
+            <i data-lucide="mountain" class="w-4 h-4 text-white stroke-[2.2]"></i>
+            <span>Explore</span>
+          </li>
+          <li class="flex items-center gap-3 text-sm font-semibold tracking-wide">
+            <i data-lucide="book-open" class="w-4 h-4 text-white stroke-[2.2]"></i>
+            <span>Learn</span>
+          </li>
+          <li class="flex items-center gap-3 text-sm font-semibold tracking-wide">
+            <i data-lucide="settings" class="w-4 h-4 text-white stroke-[2.2]"></i>
+            <span>Build</span>
+          </li>
+          <li class="flex items-center gap-3 text-sm font-semibold tracking-wide">
+            <i data-lucide="bar-chart-2" class="w-4 h-4 text-white stroke-[2.2]"></i>
+            <span>Solve</span>
+          </li>
+          <li class="flex items-center gap-3 text-sm font-semibold tracking-wide">
+            <i data-lucide="users" class="w-4 h-4 text-white stroke-[2.2]"></i>
+            <span>Create Impact</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ==========================================
+       3. RESEARCH PUBLICATION SECTION
+       ========================================== -->
+  <section id="research" class="relative w-full py-8 overflow-hidden bg-gradient-to-b from-[#fbfdff] to-[#f2f7ff] dark:from-slate-900 dark:to-slate-900/80 border-b border-slate-200/80 dark:border-slate-800">
+    
+    
+
+    <div class="relative z-10 max-w-[1560px] mx-auto px-6 lg:px-12 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+      
+      <!-- Left Column: Publication Info -->
+      <div class="lg:col-span-6 space-y-3 reveal">
+        <p class="text-[10.5px] font-bold uppercase tracking-[0.2em] text-[#496895] dark:text-slate-400">
+          Research Publication
+        </p>
+        
+        <h2 class="font-display text-2xl sm:text-[30px] font-extrabold leading-[1.15] tracking-tight text-navy-900 dark:text-white">
+          QLight-Net: Quaternion based<br />
+          <span class="text-brandBlue dark:text-blue-400">low light image enhancement network</span>
+        </h2>
+
+        <p class="text-xs sm:text-sm font-medium text-muted dark:text-slate-300 flex flex-wrap items-center gap-2">
+          <span>Journal of Visual Communication and Image Representation</span>
+          <span>&bull;</span>
+          <span>Volume 110</span>
+          <span>&bull;</span>
+          <span>Article 104478</span>
+          <span>&bull;</span>
+          <span>Available online 22 May 2025</span>
+        </p>
+
+        <!-- Abstract -->
+        <div class="flex items-start gap-3 pt-1">
+          <div class="w-9 h-9 rounded-full bg-blue-50 dark:bg-blue-900/40 border border-blue-200 dark:border-blue-700 flex items-center justify-center text-brandBlue dark:text-blue-400 shrink-0 mt-0.5 shadow-sm">
+            <i data-lucide="file-text" class="w-4 h-4"></i>
+          </div>
+          <div>
+            <h3 class="font-display text-xs sm:text-sm font-extrabold text-navy-900 dark:text-white mb-0.5">Abstract</h3>
+            <p class="text-xs sm:text-sm text-muted dark:text-slate-300 leading-relaxed">
+              Images captured at night suffer from various degradations such as color distortion, low contrast, and noise. 
+              Many existing low-light enhancement methods may amplify noise, cause color distortion, and 
+              lack finer details. The existing methods require larger number of parameters, which limits the adoption of 
+              these methods in vision-based applications. In this paper, we propose QLight-Net to achieve a 
+              better enhancement with a comparably lower number of parameters. We proposed depth-wise quaternion 
+              convolution, and quaternion cross attention to develop the two-branch architecture for low-light image 
+              enhancement. The proposed model leverages gradient branch to extract color-aware gradient features. Further, 
+              It uses color branch to extract gradient-aware color features. The proposed method achieves an LPIPS score of 
+              0.047, which surpasses the previous best results with lesser parameters, and achieves 0.88 and 29.05 scores of 
+              SSIM and PSNR, respectively. Our approach achieves a balance between computational efficiency and better 
+              enhancement.
+            </p>
+          </div>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="flex flex-wrap items-center gap-2.5 pt-2">
+          <a href="https://doi.org/10.1016/j.jvcir.2025.104478" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 bg-navy-800 hover:bg-navy-900 text-white text-xs font-semibold px-4 py-2.5 rounded-lg shadow-sm transition">
+            <span>Read Paper</span>
+            <i data-lucide="arrow-up-right" class="w-3.5 h-3.5"></i>
+          </a>
+
+          <!-- <button id="copy-doi-btn" onclick="copyDOI()" class="inline-flex items-center gap-1.5 bg-white hover:bg-slate-50 dark:bg-slate-800 dark:hover:bg-slate-700 text-navy-900 dark:text-slate-200 text-xs font-semibold px-3.5 py-2.5 rounded-lg border border-slate-200 dark:border-slate-700 shadow-sm transition">
+            <i data-lucide="copy" class="w-3.5 h-3.5"></i>
+            <span id="copy-doi-text">Copy DOI</span>
+          </button> -->
+
+          <div class="inline-flex items-center gap-2 bg-white/80 dark:bg-slate-800/90 text-xs px-3.5 py-2.5 rounded-lg border border-[#e1eaf7] dark:border-slate-700 shadow-sm">
+            <span class="font-bold text-navy-900 dark:text-slate-300">DOI</span>
+            <span id="doi-value" class="text-muted dark:text-slate-400 font-mono">10.1016/j.jvcir.2025.104478</span>
+          </div>
+
+          <button id="copy-doi-btn" onclick="copyDOI()" class="inline-flex items-center gap-1.5 bg-white hover:bg-slate-50 dark:bg-slate-800 dark:hover:bg-slate-700 text-navy-900 dark:text-slate-200 text-xs font-semibold px-3.5 py-2.5 rounded-lg border border-slate-200 dark:border-slate-700 shadow-sm transition">
+            <i data-lucide="copy" class="w-3.5 h-3.5"></i>
+            <span id="copy-doi-text">Copy DOI</span>
+          </button>
+
+
+        </div>
+      </div>
+
+      <!-- Right Column: 2 Importable Document Preview Cards -->
+      <div class="lg:col-span-6 grid grid-cols-1 sm:grid-cols-2 gap-5 reveal">
+        
+        <!-- Card 1: First Page of Published Paper -->
+        <div class="flex flex-col items-center">
+          <div onclick="openLightbox('Images/QLight-Net.jpg', 'First page of the published paper')" class="cursor-pointer w-full bg-white dark:bg-slate-800 p-2.5 rounded-xl shadow-[0_8px_24px_#1c477012] border border-[#e1eaf7] dark:border-slate-700 hover:-translate-y-1 hover:shadow-[0_14px_30px_#1c477020] transition duration-200 group overflow-hidden relative">
+            
+            <img 
+              src="Images/QLight-Net.jpg" 
+              onerror="this.style.display='none'; document.getElementById('paper-fallback').classList.remove('hidden');"
+              alt="First page of Q-LightNet published paper" 
+              class="w-full h-[300px] sm:h-[340px] object-contain rounded-lg group-hover:scale-[1.015] transition-transform duration-300"
+            />
+
+            <!-- Realistic HTML Fallback Mockup -->
+            <div id="paper-fallback" class="hidden w-full h-[300px] sm:h-[340px] bg-white text-slate-800 p-3 rounded border border-slate-100 flex flex-col justify-between text-[9px] leading-tight select-none overflow-hidden">
+              <div class="flex items-center justify-between border-b border-slate-200 pb-1.5">
+                <span class="font-serif font-bold text-[10px] text-amber-700">ELSEVIER</span>
+                <span class="text-[8px] font-semibold text-slate-500 text-right">Journal of Visual Communication<br/>and Image Representation</span>
+                <div class="w-7 h-9 bg-slate-800 rounded-sm"></div>
+              </div>
+              <div class="my-1">
+                <p class="font-bold text-[11px] text-slate-900 leading-snug">Q-LightNet: Quaternion based low light image enhancement network</p>
+                <p class="text-[8px] text-slate-500 mt-0.5">Sudeep Kumar Acharjee &bull; Kavinder Singh &bull; Anil Singh Parihar</p>
+              </div>
+              <div class="grid grid-cols-3 gap-2 pt-1 border-t border-slate-200 text-[7.5px] text-slate-500">
+                <div>
+                  <p class="font-bold text-slate-700 uppercase">Article Info</p>
+                  <p>Keywords:</p>
+                  <p>Low-light enhancement</p>
+                  <p>Quaternion conv</p>
+                  <p>Deep learning</p>
+                </div>
+                <div class="col-span-2">
+                  <p class="font-bold text-slate-700 uppercase">Abstract</p>
+                  <p class="line-clamp-4">Low-light image enhancement remains a challenging problem due to complex degradation, noise amplification and color distortion. In this paper, we propose Q-LightNet, a lightweight dual-branch network...</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <span class="text-xs font-semibold text-brandBlue dark:text-blue-400 mt-1.5">
+            First page of the published paper
+          </span>
+        </div>
+
+        <!-- Card 2: Publication Certificate -->
+        <div class="flex flex-col items-center">
+          <div onclick="openLightbox('Images/Certi.jpeg', 'Commendable Research Award Certificate', 'https://dtu.ac.in/')" class="cursor-pointer w-full bg-white dark:bg-slate-800 p-2.5 rounded-xl shadow-[0_8px_24px_#1c477012] border border-[#e1eaf7] dark:border-slate-700 hover:-translate-y-1 hover:shadow-[0_14px_30px_#1c477020] transition duration-200 group overflow-hidden relative">
+            
+            <img 
+              src="Images/Certi.jpeg" 
+              onerror="this.style.display='none'; document.getElementById('cert-fallback').classList.remove('hidden');"
+              alt="Elsevier Certificate of Publication" 
+              class="w-full h-[300px] sm:h-[340px] object-contain rounded-lg group-hover:scale-[1.015] transition-transform duration-300"
+            />
+
+            <!-- Realistic HTML Fallback Mockup -->
+            <div id="cert-fallback" class="hidden w-full h-[300px] sm:h-[340px] bg-amber-50/40 text-slate-800 p-3 rounded border-2 border-amber-200/60 flex flex-col items-center justify-between text-center select-none relative overflow-hidden">
+              <div class="w-full flex items-center justify-between border-b border-amber-200/60 pb-1">
+                <span class="font-serif font-bold text-[10px] text-amber-700">ELSEVIER</span>
+                <span class="text-[8px] text-slate-500">Journal of Visual Communication and Image Representation</span>
+              </div>
+              <div class="space-y-0.5 my-1">
+                <p class="font-serif font-bold text-xs text-slate-900">Commendable Research Award</p>
+                <p class="text-[7.5px] text-slate-500">This certificate awarded to me for the research paper</p>
+                <p class="font-bold text-[9.5px] text-slate-900 max-w-[220px] mx-auto leading-tight">Q-LightNet: Quaternion based low light image enhancement network</p>
+                <p class="text-[7.5px] text-slate-500">authored by</p>
+                <p class="font-semibold text-[8.5px] text-slate-800">Sudeep Kumar Acharjee, Kavinder Singh, Anil Singh Parihar</p>
+                <p class="text-[7.5px] text-slate-500">Volume 110, 2025, Article 104478</p>
+              </div>
+              <div class="w-full flex items-center justify-center relative pt-1">
+                <span class="text-[8px] italic text-slate-500">Editor-in-Chief</span>
+                <div class="w-7 h-7 rounded-full bg-red-800 border-2 border-amber-400 absolute right-2 bottom-0 shadow"></div>
+              </div>
+            </div>
+          </div>
+          <span class="text-xs font-semibold text-brandBlue dark:text-blue-400 mt-1.5">
+            Commendable Research Award Certificate
+          </span>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ==========================================
+       4. PROFESSIONAL EXPERIENCE SECTION
+       ========================================== -->
+  <section id="experience" class="py-8 bg-[#f8fbff] dark:bg-slate-900/60 border-b border-slate-200/80 dark:border-slate-800">
+    <div class="max-w-[1560px] mx-auto px-6 lg:px-12">
+      
+      <!-- Header Row -->
+      <div class="flex flex-col sm:flex-row sm:items-end justify-between mb-5 gap-3 reveal">
+        <div>
+          <p class="text-[10.5px] font-bold uppercase tracking-[0.2em] text-[#496895] dark:text-slate-400 mb-1">
+            Roles, contributions and key highlights.
+          </p>
+          <h2 class="font-display text-2xl sm:text-[28px] font-extrabold tracking-tight text-navy-900 dark:text-white">
+            
+            Professional Experience
+          </h2>
+        </div>
+
+        <div class="flex items-center gap-4 self-end">
+          <span class="font-handwriting text-xl sm:text-2xl text-navy-900 dark:text-amber-200 -rotate-2 hidden md:inline-block">
+            Turning ideas into real-world solutions.
+          </span>
+          <div class="flex items-center gap-1.5">
+            <button onclick="scrollCarousel('exp-carousel', -380)" aria-label="Previous Experience" class="w-8 h-8 rounded-full bg-white dark:bg-slate-800 border border-[#e1eaf7] dark:border-slate-700 flex items-center justify-center text-slate-600 dark:text-slate-300 hover:bg-slate-100 transition shadow-sm">
+              <i data-lucide="chevron-left" class="w-4 h-4"></i>
+            </button>
+            <button onclick="scrollCarousel('exp-carousel', 380)" aria-label="Next Experience" class="w-8 h-8 rounded-full bg-white dark:bg-slate-800 border border-[#e1eaf7] dark:border-slate-700 flex items-center justify-center text-slate-600 dark:text-slate-300 hover:bg-slate-100 transition shadow-sm">
+              <i data-lucide="chevron-right" class="w-4 h-4"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- 4 Experience Cards -->
+      <div id="exp-carousel" class="experience-carousel flex gap-4 overflow-x-auto no-scrollbar scroll-smooth pb-2 reveal">
+        
+        <!-- Card 1: Barclays -->
+        <div class="experience-card bg-white/95 dark:bg-slate-800 rounded-xl p-4 border border-[#e1eaf7] dark:border-slate-700 shadow-[0_8px_24px_#1c47700d] hover:-translate-y-1 hover:shadow-[0_14px_30px_#1c47701b] transition duration-200">
+          <div class="flex items-start justify-between gap-2 mb-2.5">
+            <div class="flex items-center gap-2.5 min-w-0">
+              <img 
+                src="Logo/Barclays.png" data-local-image="Logo/Barclays"
+                alt="Barclays logo" 
+                class="w-9 h-9 rounded-full object-contain border border-slate-100 shrink-0"
+              />
+              <div class="min-w-0">
+                <h3 class="font-display text-[13.5px] font-extrabold text-navy-900 dark:text-white leading-snug break-words whitespace-normal">Analyst – Risk Transformation</h3>
+                <p class="text-[11px] text-muted dark:text-slate-400 leading-snug break-words whitespace-normal">Barclays, Noida <span class="mx-1">|</span> July 2025 – Present</p>
+              </div>
+            </div>
+            <span class="px-2.5 py-0.5 text-[10px] font-bold rounded-full bg-blue-50 text-brandBlue dark:bg-blue-900/40 dark:text-blue-300 shrink-0">
+              Industry
+            </span>
+          </div>
+
+          <ul class="space-y-1 text-[11.5px] text-muted dark:text-slate-300 list-disc pl-4 marker:text-brandBlue leading-snug">
+            <li>Working on process improvement and automation initiatives.</li>
+            <li>Using data analytics and AI/ML tools to solve real business problems.</li>
+            <li>Exposure to risk processes, regulatory context and enterprise environment.</li>
+            <li>Working with tools such as Python, Alteryx, Power BI, Power Apps and Power Automate.</li>
+            <li>Collaborating with cross-functional teams to deliver scalable solutions.</li>
+          </ul>
+        </div>
+
+        <!-- Card 2: MTech Teaching Assistant -->
+        <div class="experience-card bg-white/95 dark:bg-slate-800 rounded-xl p-4 border border-[#e1eaf7] dark:border-slate-700 shadow-[0_8px_24px_#1c47700d] hover:-translate-y-1 hover:shadow-[0_14px_30px_#1c47701b] transition duration-200">
+          <div class="flex items-start justify-between gap-2 mb-2.5">
+            <div class="flex items-center gap-2.5 min-w-0">
+              <img 
+                src="Logo/Delhi-Technological-University-DTU-logo.png" data-local-image="Logo/Delhi-Technological-University-DTU-logo"
+                alt="Delhi Technological University logo" 
+                class="w-9 h-9 rounded-full object-contain border border-slate-100 shrink-0"
+              />
+              <div class="min-w-0">
+                <h3 class="font-display text-[13.5px] font-extrabold text-navy-900 dark:text-white leading-snug break-words whitespace-normal">MTech – Teaching Assistant</h3>
+                <p class="text-[11px] text-muted dark:text-slate-400 leading-snug break-words whitespace-normal">Delhi Technological University <span class="mx-0.5">|</span> Aug 2024 – May 2025</p>
+              </div>
+            </div>
+            <span class="px-2.5 py-0.5 text-[10px] font-bold rounded-full bg-emerald-50 text-emerald-600 dark:bg-emerald-900/40 dark:text-emerald-300 shrink-0">
+              Academics
+            </span>
+          </div>
+
+          <ul class="space-y-1 text-[11.5px] text-muted dark:text-slate-300 list-disc pl-4 marker:text-emerald-600 leading-snug">
+            <li><b>Subjects:</b> Machine Learning & Deep Learning (BTech)</li>
+            <li>Assisted in coursework and lab sessions.</li>
+            <li>Guided students in deep learning and computer vision topics.</li>
+            <li>Helped with assignments, doubt solving and project discussions.</li>
+            <li>Developed stronger conceptual understanding and communication skills.</li>
+          </ul>
+        </div>
+
+        <!-- Card 3: Summer School on AI -->
+        <div class="experience-card bg-white/95 dark:bg-slate-800 rounded-xl p-4 border border-[#e1eaf7] dark:border-slate-700 shadow-[0_8px_24px_#1c47700d] hover:-translate-y-1 hover:shadow-[0_14px_30px_#1c47701b] transition duration-200">
+          <div class="flex items-start justify-between gap-2 mb-2.5">
+            <div class="flex items-center gap-2.5 min-w-0">
+              <img 
+                src="Logo/Delhi-Technological-University-DTU-logo.png" data-local-image="Logo/Delhi-Technological-University-DTU-logo"
+                alt="Delhi Technological University logo" 
+                class="w-9 h-9 rounded-full object-contain border border-slate-100 shrink-0"
+              />
+              <div class="min-w-0">
+                <h3 class="font-display text-[13.5px] font-extrabold text-navy-900 dark:text-white leading-snug break-words whitespace-normal">Summer School on AI – Organizer</h3>
+                <p class="text-[11px] text-muted dark:text-slate-400 leading-snug break-words whitespace-normal">Delhi Technological University <span class="mx-1">|</span> June 2024</p>
+              </div>
+            </div>
+            <span class="px-2.5 py-0.5 text-[10px] font-bold rounded-full bg-purple-50 text-purple-600 dark:bg-purple-900/40 dark:text-purple-300 shrink-0">
+              Leadership
+            </span>
+          </div>
+
+          <ul class="space-y-1 text-[11.5px] text-muted dark:text-slate-300 list-disc pl-4 marker:text-purple-600 leading-snug">
+            <li>Organized and contributed to a successful summer school program.</li>
+            <li>Involved in planning, coordination and execution.</li>
+            <li>Helped create a learning platform for students to explore Deep Learning.</li>
+            <li>Coordinated with faculty, speakers and participants.</li>
+          </ul>
+        </div>
+
+        <!-- Card 4: Organisation -->
+        <div class="experience-card bg-white/95 dark:bg-slate-800 rounded-xl p-4 border border-[#e1eaf7] dark:border-slate-700 shadow-[0_8px_24px_#1c47700d] hover:-translate-y-1 hover:shadow-[0_14px_30px_#1c47701b] transition duration-200">
+          <div class="flex items-start justify-between gap-2 mb-2.5">
+            <div class="flex items-center gap-2.5 min-w-0">
+              <img 
+                src="Logo/lpu.png" 
+                onerror="this.style.display='none'; document.getElementById('star-fallback').classList.remove('hidden');"
+                alt="Campus Ambassador" 
+                class="w-9 h-9 rounded-full object-contain border border-slate-100 shrink-0"
+              />
+              <div id="star-fallback" class="hidden w-9 h-9 rounded-full bg-amber-50 dark:bg-amber-900/30 border border-amber-200 flex items-center justify-center text-amber-500 shrink-0">
+                <i data-lucide="star" class="w-5 h-5 fill-amber-400 text-amber-500"></i>
+              </div>
+              <div class="min-w-0">
+                <h3 class="font-display text-[13.5px] font-extrabold text-navy-900 dark:text-white leading-snug break-words whitespace-normal">Head of OSR - SPADE</h3>
+                <p class="text-[11px] text-muted dark:text-slate-400 leading-snug break-words whitespace-normal">Lovely Professional University <span class="mx-1">|</span>Mar 2019 - May 2020</p>
+              </div>
+            </div>
+            <span class="px-2.5 py-0.5 text-[10px] font-bold rounded-full bg-sky-50 text-sky-600 dark:bg-sky-900/40 dark:text-sky-300 shrink-0">
+              Leadership
+            </span>
+          </div>
+
+          <ul class="space-y-1 text-[11.5px] text-muted dark:text-slate-300 list-disc pl-4 marker:text-sky-600 leading-snug">
+            <li>Volunteer at student Organisation SPADE.</li>
+            <li>Conducted events and social activities.</li>
+            <li>Collaborated with 50+ volunteers.</li>
+            <li>Lead 12+ volunteers in OSR dept.</li>
+          </ul>
+        </div>
+
+        <!-- Card 5: Campus Ambassador -->
+        <div class="experience-card bg-white/95 dark:bg-slate-800 rounded-xl p-4 border border-[#e1eaf7] dark:border-slate-700 shadow-[0_8px_24px_#1c47700d] hover:-translate-y-1 hover:shadow-[0_14px_30px_#1c47701b] transition duration-200">
+          <div class="flex items-start justify-between gap-2 mb-2.5">
+            <div class="flex items-center gap-2.5 min-w-0">
+              <img 
+                src="Logo/codingninjas.png" 
+                onerror="this.style.display='none'; document.getElementById('star-fallback').classList.remove('hidden');"
+                alt="Campus Ambassador" 
+                class="w-9 h-9 rounded-full object-contain border border-slate-100 shrink-0"
+              />
+              <div id="star-fallback" class="hidden w-9 h-9 rounded-full bg-amber-50 dark:bg-amber-900/30 border border-amber-200 flex items-center justify-center text-amber-500 shrink-0">
+                <i data-lucide="star" class="w-5 h-5 fill-amber-400 text-amber-500"></i>
+              </div>
+              <div class="min-w-0">
+                <h3 class="font-display text-[13.5px] font-extrabold text-navy-900 dark:text-white leading-snug break-words whitespace-normal">Campus Ambassador</h3>
+                <p class="text-[11px] text-muted dark:text-slate-400 leading-snug break-words whitespace-normal">Coding Ninja <span class="mx-1">|</span>2018-19</p>
+              </div>
+            </div>
+            <span class="px-2.5 py-0.5 text-[10px] font-bold rounded-full bg-sky-50 text-sky-600 dark:bg-sky-900/40 dark:text-sky-300 shrink-0">
+              Leadership
+            </span>
+          </div>
+
+          <ul class="space-y-1 text-[11.5px] text-muted dark:text-slate-300 list-disc pl-4 marker:text-sky-600 leading-snug">
+            <li>Represented the platform at LPU.</li>
+            <li>Conducted awareness sessions and drives.</li>
+            <li>Collaborated with peers and the team for outreach.</li>
+            <li>Built community engagement and technical workshops.</li>
+          </ul>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ==========================================
+       5. CERTIFICATIONS & SKILLS SPLIT SECTION
+       ========================================== -->
+  <section id="certifications" class="py-8 bg-white dark:bg-slate-900 border-b border-slate-200/80 dark:border-slate-800">
+    <div class="max-w-[1560px] mx-auto px-6 lg:px-12 grid grid-cols-1 xl:grid-cols-12 gap-8 items-start">
+      
+      <!-- LEFT HALF: Certifications (7 Cols) -->
+      <div class="xl:col-span-7 relative reveal">
+        <div class="mb-4">
+          <p class="text-[10.5px] font-bold uppercase tracking-[0.2em] text-[#496895] dark:text-slate-400 mb-1">
+            Certifications
+          </p>
+          <h2 class="font-display text-2xl sm:text-[26px] font-extrabold tracking-tight text-navy-900 dark:text-white">
+            Continuous learning for a better tomorrow.
+          </h2>
+        </div>
+
+        <div class="relative flex items-center">
+          <button onclick="scrollCarousel('cert-carousel', -360)" aria-label="Scroll Certifications Left" class="z-10 w-7 h-7 rounded-full bg-white dark:bg-slate-800 border border-[#e1eaf7] dark:border-slate-700 shadow flex items-center justify-center text-slate-600 dark:text-slate-300 hover:bg-slate-100 transition shrink-0 mr-2">
+            <i data-lucide="chevron-left" class="w-3.5 h-3.5"></i>
+          </button>
+
+          <div id="cert-carousel" class="w-full flex gap-3 overflow-x-auto no-scrollbar scroll-smooth snap-x snap-mandatory py-2" aria-label="Scrollable certifications">
+            
+            <!-- Cert 1 -->
+            <div data-cert-title="Deep Learning Specialization" data-cert-image="Images/Certi.jpeg" data-verify-url="https://www.coursera.org/" role="button" tabindex="0" aria-label="View certificate: Deep Learning Specialization" class="w-[166px] min-w-[166px] sm:w-[174px] sm:min-w-[174px] bg-white dark:bg-slate-800 rounded-xl p-3.5 border border-[#e1eaf7] dark:border-slate-700 shadow-[0_6px_18px_#1c47700a] hover:-translate-y-1 transition flex flex-col justify-between h-36 snap-start cursor-pointer">
+              <div class="flex items-start gap-2">
+                <div class="w-6 h-6 rounded-md bg-blue-50 text-brandBlue flex items-center justify-center shrink-0 mt-0.5">
+                  <i data-lucide="award" class="w-3.5 h-3.5"></i>
+                </div>
+                <div>
+                  <h3 class="font-display text-[11px] font-extrabold text-navy-900 dark:text-white leading-tight">Deep Learning Specialization</h3>
+                  <p class="text-[10px] text-muted mt-0.5">Coursera</p>
+                </div>
+              </div>
+              <div class="flex items-center justify-between gap-1 pt-2 border-t border-slate-100 dark:border-slate-700 text-[9.5px] font-extrabold">
+                <span class="text-rose-500 whitespace-nowrap">DeepLearning.AI</span>
+                <span class="text-brandBlue">coursera</span>
+              </div>
+            </div>
+
+            <!-- Cert 2 -->
+            <div data-cert-title="Machine Learning Specialization" data-cert-image="Images/Certi.jpeg" data-verify-url="https://www.coursera.org/" role="button" tabindex="0" aria-label="View certificate: Machine Learning Specialization" class="w-[166px] min-w-[166px] sm:w-[174px] sm:min-w-[174px] bg-white dark:bg-slate-800 rounded-xl p-3.5 border border-[#e1eaf7] dark:border-slate-700 shadow-[0_6px_18px_#1c47700a] hover:-translate-y-1 transition flex flex-col justify-between h-36 snap-start cursor-pointer">
+              <div class="flex items-start gap-2">
+                <div class="w-6 h-6 rounded-md bg-blue-50 text-brandBlue flex items-center justify-center shrink-0 mt-0.5">
+                  <i data-lucide="award" class="w-3.5 h-3.5"></i>
+                </div>
+                <div>
+                  <h3 class="font-display text-[11px] font-extrabold text-navy-900 dark:text-white leading-tight">Machine Learning Specialization</h3>
+                  <p class="text-[10px] text-muted mt-0.5">Coursera</p>
+                </div>
+              </div>
+              <div class="flex items-center justify-between gap-1 pt-2 border-t border-slate-100 dark:border-slate-700 text-[9.5px] font-extrabold">
+                <span class="text-rose-500 whitespace-nowrap">DeepLearning.AI</span>
+                <span class="text-brandBlue">coursera</span>
+              </div>
+            </div>
+
+            <!-- Cert 3 -->
+            <div data-cert-title="Generative AI with LLMs" data-cert-image="Images/Certi.jpeg" data-verify-url="https://www.coursera.org/" role="button" tabindex="0" aria-label="View certificate: Generative AI with LLMs" class="w-[166px] min-w-[166px] sm:w-[174px] sm:min-w-[174px] bg-white dark:bg-slate-800 rounded-xl p-3.5 border border-[#e1eaf7] dark:border-slate-700 shadow-[0_6px_18px_#1c47700a] hover:-translate-y-1 transition flex flex-col justify-between h-36 snap-start cursor-pointer">
+              <div class="flex items-start gap-2">
+                <div class="w-6 h-6 rounded-md bg-blue-50 text-brandBlue flex items-center justify-center shrink-0 mt-0.5">
+                  <i data-lucide="award" class="w-3.5 h-3.5"></i>
+                </div>
+                <div>
+                  <h3 class="font-display text-[11px] font-extrabold text-navy-900 dark:text-white leading-tight">Generative AI with LLMs</h3>
+                  <p class="text-[10px] text-muted mt-0.5">Coursera</p>
+                </div>
+              </div>
+              <div class="flex items-center justify-between gap-1 pt-2 border-t border-slate-100 dark:border-slate-700 text-[9.5px] font-extrabold">
+                <span class="text-rose-500 whitespace-nowrap">DeepLearning.AI</span>
+                <span class="text-brandBlue">coursera</span>
+              </div>
+            </div>
+
+            <!-- Cert 4 -->
+            <div data-cert-title="Google Data Analytics" data-cert-image="Images/Certi.jpeg" data-verify-url="https://www.coursera.org/" role="button" tabindex="0" aria-label="View certificate: Google Data Analytics" class="w-[166px] min-w-[166px] sm:w-[174px] sm:min-w-[174px] bg-white dark:bg-slate-800 rounded-xl p-3.5 border border-[#e1eaf7] dark:border-slate-700 shadow-[0_6px_18px_#1c47700a] hover:-translate-y-1 transition flex flex-col justify-between h-36 snap-start cursor-pointer">
+              <div class="flex items-start gap-2">
+                <div class="w-6 h-6 rounded-md bg-emerald-50 text-emerald-600 flex items-center justify-center shrink-0 mt-0.5">
+                  <i data-lucide="award" class="w-3.5 h-3.5"></i>
+                </div>
+                <div>
+                  <h3 class="font-display text-[11px] font-extrabold text-navy-900 dark:text-white leading-tight">Google Data Analytics</h3>
+                  <p class="text-[10px] text-muted mt-0.5">Coursera</p>
+                </div>
+              </div>
+              <div class="flex items-center justify-between pt-2 border-t border-slate-100 dark:border-slate-700 font-extrabold">
+                <span class="text-xs tracking-tight">
+                  <span class="text-blue-500">G</span><span class="text-red-500">o</span><span class="text-amber-500">o</span><span class="text-blue-500">g</span><span class="text-emerald-500">l</span><span class="text-red-500">e</span>
+                </span>
+                <span class="text-brandBlue text-[10px]">coursera</span>
+              </div>
+            </div>
+
+            <!-- Cert 5 -->
+            <div data-cert-title="Microsoft Power Automate" data-cert-image="Images/Certi.jpeg" data-verify-url="https://learn.microsoft.com/en-us/credentials/" role="button" tabindex="0" aria-label="View certificate: Microsoft Power Automate" class="w-[166px] min-w-[166px] sm:w-[174px] sm:min-w-[174px] bg-white dark:bg-slate-800 rounded-xl p-3.5 border border-[#e1eaf7] dark:border-slate-700 shadow-[0_6px_18px_#1c47700a] hover:-translate-y-1 transition flex flex-col justify-between h-36 snap-start cursor-pointer">
+              <div class="flex items-start gap-2">
+                <div class="w-6 h-6 rounded-md bg-sky-50 text-sky-600 flex items-center justify-center shrink-0 mt-0.5">
+                  <i data-lucide="award" class="w-3.5 h-3.5"></i>
+                </div>
+                <div>
+                  <h3 class="font-display text-[11px] font-extrabold text-navy-900 dark:text-white leading-tight">Microsoft Power Automate</h3>
+                  <p class="text-[10px] text-muted mt-0.5">Microsoft Learn</p>
+                </div>
+              </div>
+              <div class="flex items-center gap-1.5 pt-2 border-t border-slate-100 dark:border-slate-700 text-xs font-extrabold text-slate-700 dark:text-slate-200">
+                <div class="grid grid-cols-2 gap-0.5 w-3.5 h-3.5 shrink-0">
+                  <span class="bg-orange-500 block"></span>
+                  <span class="bg-emerald-500 block"></span>
+                  <span class="bg-sky-500 block"></span>
+                  <span class="bg-amber-400 block"></span>
+                </div>
+                <span class="text-[11px]">Microsoft</span>
+              </div>
+            </div>
+
+          </div>
+
+          <button onclick="scrollCarousel('cert-carousel', 360)" aria-label="Scroll Certifications Right" class="z-10 w-7 h-7 rounded-full bg-white dark:bg-slate-800 border border-[#e1eaf7] dark:border-slate-700 shadow flex items-center justify-center text-slate-600 dark:text-slate-300 hover:bg-slate-100 transition shrink-0 ml-2">
+            <i data-lucide="chevron-right" class="w-3.5 h-3.5"></i>
+          </button>
+        </div>
+
+        <div id="cert-dots" class="hidden items-center justify-center gap-1.5 mt-3" aria-label="Certification carousel pages"></div>
+      </div>
+
+      <!-- RIGHT HALF: Skills & Tools (5 Cols) -->
+      <div id="skills" class="xl:col-span-5 reveal">
+        <div class="flex items-end justify-between mb-4">
+          <div>
+            <p class="text-[10.5px] font-bold uppercase tracking-[0.2em] text-[#496895] dark:text-slate-400 mb-1">
+              Skills &amp; Tools
+            </p>
+            <h2 class="font-display text-2xl sm:text-[26px] font-extrabold tracking-tight text-navy-900 dark:text-white">
+              Tools I work with.
+            </h2>
+          </div>
+          <span class="font-handwriting text-xl text-navy-900 dark:text-amber-200 -rotate-6 leading-none">
+            Right tools<br />for bigger problems.
+          </span>
+        </div>
+
+        <!-- Skills Bento Grid -->
+        <div class="grid grid-cols-1 sm:grid-cols-12 gap-2.5">
+          
+          <!-- Group 1: Programming & Development -->
+          <div class="sm:col-span-6 bg-[#f8fbff] dark:bg-slate-800/70 rounded-xl p-3 border border-[#e1eaf7] dark:border-slate-700">
+            <h3 class="font-display text-[11px] font-extrabold text-navy-900 dark:text-slate-200 flex items-center gap-1.5 mb-2.5">
+              <i data-lucide="code-2" class="w-3.5 h-3.5 text-brandBlue"></i>
+              Programming &amp; Development
+            </h3>
+            <div class="flex items-center justify-between px-1">
+              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" alt="Python" title="Python" class="w-6 h-6" />
+              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/c/c-original.svg" alt="C" title="C" class="w-6 h-6" />
+              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" alt="JS" title="JavaScript" class="w-6 h-6 rounded-sm" />
+              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vscode/vscode-original.svg" alt="VS Code" title="VS Code" class="w-6 h-6" />
+              <div class="flex flex-col items-center">
+                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg" alt="Git" title="Git" class="w-5 h-5" />
+                <span class="text-[8px] text-muted mt-0.5">Git</span>
+              </div>
+              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg" alt="GitHub" title="GitHub" class="w-6 h-6 dark:invert" />
+            </div>
+          </div>
+
+          <!-- Group 2: Deep Learning & AI/ML -->
+          <div class="sm:col-span-6 bg-[#f8fbff] dark:bg-slate-800/70 rounded-xl p-3 border border-[#e1eaf7] dark:border-slate-700">
+            <h3 class="font-display text-[11px] font-extrabold text-navy-900 dark:text-slate-200 flex items-center gap-1.5 mb-2">
+              <i data-lucide="brain-circuit" class="w-3.5 h-3.5 text-purple-600"></i>
+              Deep Learning &amp; AI/ML
+            </h3>
+            <div class="flex items-center justify-around text-center">
+              <div class="flex flex-col items-center">
+                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/pytorch/pytorch-original.svg" alt="PyTorch" class="w-5 h-5" />
+                <span class="text-[9px] text-muted dark:text-slate-400 mt-1">PyTorch</span>
+              </div>
+              <div class="flex flex-col items-center">
+                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tensorflow/tensorflow-original.svg" alt="TensorFlow" class="w-5 h-5" />
+                <span class="text-[9px] text-muted dark:text-slate-400 mt-1">TensorFlow</span>
+              </div>
+              <div class="flex flex-col items-center">
+                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/scikitlearn/scikitlearn-original.svg" alt="scikit-learn" class="w-6 h-5 object-contain" />
+                <span class="text-[9px] text-muted dark:text-slate-400 mt-1">scikit-learn</span>
+              </div>
+              <div class="flex flex-col items-center">
+                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/opencv/opencv-original.svg" alt="OpenCV" class="w-5 h-5" />
+                <span class="text-[9px] text-muted dark:text-slate-400 mt-1">OpenCV</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Group 3: Data & Analytics -->
+          <div class="sm:col-span-6 bg-[#f8fbff] dark:bg-slate-800/70 rounded-xl p-3 border border-[#e1eaf7] dark:border-slate-700">
+            <h3 class="font-display text-[11px] font-extrabold text-navy-900 dark:text-slate-200 flex items-center gap-1.5 mb-2">
+              <i data-lucide="bar-chart-3" class="w-3.5 h-3.5 text-amber-500"></i>
+              Data &amp; Analytics
+            </h3>
+            <div class="grid grid-cols-7 gap-1 text-center items-end">
+              <div class="flex flex-col items-center">
+                <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none">
+                  <rect x="3" y="12" width="4" height="9" rx="1" fill="#F2C811"/>
+                  <rect x="10" y="7" width="4" height="14" rx="1" fill="#E8A900"/>
+                  <rect x="17" y="3" width="4" height="18" rx="1" fill="#C87E00"/>
+                </svg>
+                <span class="text-[8.5px] text-muted dark:text-slate-400 mt-1 truncate w-full">Power BI</span>
+              </div>
+              <div class="flex flex-col items-center">
+                <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none">
+                  <ellipse cx="12" cy="5" rx="8" ry="3" fill="#0284C7"/>
+                  <path d="M4 5v6c0 1.66 3.58 3 8 3s8-1.34 8-3V5" fill="#0ea5e9"/>
+                  <path d="M4 11v6c0 1.66 3.58 3 8 3s8-1.34 8-3v-6" fill="#0284C7"/>
+                  <text x="12" y="15" text-anchor="middle" fill="white" font-size="6" font-weight="bold">SQL</text>
+                </svg>
+                <span class="text-[8.5px] text-muted dark:text-slate-400 mt-1">SQL</span>
+              </div>
+              <div class="flex flex-col items-center">
+                <div class="w-5 h-5 rounded bg-emerald-600 text-white font-extrabold text-[11px] flex items-center justify-center shadow-sm">X</div>
+                <span class="text-[8.5px] text-muted dark:text-slate-400 mt-1">Excel</span>
+              </div>
+              <div class="flex flex-col items-center">
+                <div class="w-5 h-5 rounded-full bg-sky-600 text-white font-bold text-[11px] flex items-center justify-center shadow-sm">a</div>
+                <span class="text-[8.5px] text-muted dark:text-slate-400 mt-1">Alteryx</span>
+              </div>
+              <div class="flex flex-col items-center">
+                <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none">
+                  <path d="M12 2v6M12 16v6M2 12h6M16 12h6M6 6h4M14 6h4M6 18h4M14 18h4" stroke="#E97627" stroke-width="2.2" stroke-linecap="round"/>
+                </svg>
+                <span class="text-[8.5px] text-muted dark:text-slate-400 mt-1">Tableau</span>
+              </div>
+              <div class="flex flex-col items-center">
+                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/pandas/pandas-original.svg" alt="Pandas" class="w-5 h-5" />
+                <span class="text-[8.5px] text-muted dark:text-slate-400 mt-1">Pandas</span>
+              </div>
+              <div class="flex flex-col items-center">
+                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/jupyter/jupyter-original.svg" alt="Jupyter" class="w-5 h-5" />
+                <span class="text-[8.5px] text-muted dark:text-slate-400 mt-1">Jupyter</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Group 4: Automation & Low-code -->
+          <div class="sm:col-span-3 bg-[#f8fbff] dark:bg-slate-800/70 rounded-xl p-3 border border-[#e1eaf7] dark:border-slate-700 flex flex-col justify-between">
+            <h3 class="font-display text-[10px] font-extrabold text-navy-900 dark:text-slate-200 leading-tight mb-2">
+              Automation &amp; Low-code
+            </h3>
+            <div class="grid grid-cols-4 gap-1 text-center items-end">
+              <div class="flex flex-col items-center">
+                <div class="w-5 h-5 rounded bg-sky-500 text-white flex items-center justify-center"><i data-lucide="zap" class="w-3 h-3"></i></div>
+                <span class="text-[7.5px] text-muted mt-1 truncate w-full">Automate</span>
+              </div>
+              <div class="flex flex-col items-center">
+                <div class="w-5 h-5 rounded bg-purple-600 text-white flex items-center justify-center"><i data-lucide="layers" class="w-3 h-3"></i></div>
+                <span class="text-[7.5px] text-muted mt-1 truncate w-full">Apps</span>
+              </div>
+              <div class="flex flex-col items-center">
+                <div class="w-5 h-5 rounded bg-teal-600 text-white font-bold text-[10px] flex items-center justify-center">S</div>
+                <span class="text-[7.5px] text-muted mt-1 truncate w-full">SharePoint</span>
+              </div>
+              <div class="flex flex-col items-center">
+                <div class="w-5 h-5 rounded bg-indigo-600 text-white font-bold text-[10px] flex items-center justify-center">T</div>
+                <span class="text-[7.5px] text-muted mt-1 truncate w-full">Teams</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Group 5: Other Tools -->
+          <div class="sm:col-span-3 bg-[#f8fbff] dark:bg-slate-800/70 rounded-xl p-3 border border-[#e1eaf7] dark:border-slate-700 flex flex-col justify-between">
+            <h3 class="font-display text-[10px] font-extrabold text-navy-900 dark:text-slate-200 leading-tight mb-2">
+              Other Tools
+            </h3>
+            <div class="grid grid-cols-5 gap-1 text-center items-end">
+              <div class="flex flex-col items-center">
+                <span class="font-serif font-bold text-[10px] text-navy-900 dark:text-slate-200 h-5 flex items-center">LaTeX</span>
+                <span class="text-[7.5px] text-muted mt-1">LaTeX</span>
+              </div>
+              <div class="flex flex-col items-center">
+                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/notion/notion-original.svg" alt="Notion" class="w-4 h-5 object-contain dark:invert" />
+                <span class="text-[7.5px] text-muted mt-1">Notion</span>
+              </div>
+              <div class="flex flex-col items-center">
+                <div class="w-5 h-5 rounded bg-amber-500 text-white font-bold text-[8px] flex items-center justify-center">CO</div>
+                <span class="text-[7.5px] text-muted mt-1">Colab</span>
+              </div>
+              <div class="flex flex-col items-center">
+                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linux/linux-original.svg" alt="Linux" class="w-4 h-5 object-contain" />
+                <span class="text-[7.5px] text-muted mt-1">Linux</span>
+              </div>
+              <div class="flex flex-col items-center">
+                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/windows8/windows8-original.svg" alt="Windows" class="w-4 h-5 object-contain" />
+                <span class="text-[7.5px] text-muted mt-1">Win</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- =========================================================================
+       6. EDUCATION & CAREER JOURNEY SECTION (EXACT REPLICA OF TARGET IMAGE)
+       ========================================================================= -->
+  <section id="journey" class="journey-replica-section">
+    
+    <!-- Section Title Row (Single-Line Heading + Handwritten Quote on Right) -->
+    <div class="max-w-[1560px] mx-auto px-6 lg:px-12 relative z-20 flex flex-col sm:flex-row sm:items-end justify-between mb-1">
+      <div>
+        <p class="text-[10.5px] font-bold uppercase tracking-[0.2em] text-[#496895] dark:text-slate-400 mb-1">
+          EDUCATION &amp; CAREER JOURNEY
+        </p>
+        <h2 class="font-display text-2xl sm:text-[30px] font-extrabold tracking-tight text-navy-900 dark:text-white leading-tight">
+          A journey of curiosity, <span class="text-brandBlue dark:text-blue-400">learning and impact.</span>
+        </h2>
+      </div>
+
+      <!-- Handwritten Quote Positioned Top-Right of the Scene -->
+      <div class="font-handwriting text-2xl sm:text-[26px] text-navy-900 dark:text-amber-200 -rotate-6 leading-none hidden md:block sm:mb-1 sm:mr-2">
+        Different places,<br />
+        <span class="ml-2">same curiosity.</span>
+      </div>
+    </div>
+
+    <!-- =======================================================================
+         DESKTOP ILLUSTRATED PANORAMA SCENE (100% Unified SVG Coordinate System)
+         Fixes in v5:
+         1. Text labels are inside the SVG coordinate system (<foreignObject>) so
+            the red pin NEVER overlaps "Schooling" at any screen width or zoom.
+         2. Stage 5 is unified into a single Barclays Noida campus (Barclays tower +
+            adjacent office wing right beside it) directly after MTech at DTU,
+            eliminating the separate 6th building gap.
+         ======================================================================= -->
+    <div class="relative w-full max-w-[1600px] mx-auto overflow-hidden select-none">
+      
+      <!-- Optional User-Imported Full Banner Image (Hidden unless assets/journey-road-bg.png exists) -->
+      <img 
+        src="assets/journey-road-bg.png" 
+        onload="this.classList.remove('hidden'); document.getElementById('built-in-panorama-svg').classList.add('opacity-0');"
+        onerror="this.classList.add('hidden');"
+        alt="Education and Career Journey Panorama" 
+        class="hidden absolute inset-0 w-full h-full object-cover object-bottom z-0"
+      />
+
+      <!-- HIGH-DETAIL ILLUSTRATED PANORAMA SVG (Mountains, Pine Trees, 5 Landmarks, Pins, Labels & Winding Road) -->
+      <svg id="built-in-panorama-svg" viewBox="0 0 1600 355" class="w-full h-auto relative z-10 block">
+        <defs>
+          <!-- Sky & Mountain Gradients -->
+          <linearGradient id="mtnBack" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#dbeafe" />
+            <stop offset="100%" stop-color="#eff6ff" />
+          </linearGradient>
+          <linearGradient id="mtnMid" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#bfdbfe" />
+            <stop offset="100%" stop-color="#e0f2fe" />
+          </linearGradient>
+          <linearGradient id="hillGreen" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#86efac" />
+            <stop offset="100%" stop-color="#dcfce7" />
+          </linearGradient>
+          <linearGradient id="sandVerge" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#fde68a" />
+            <stop offset="100%" stop-color="#fef3c7" />
+          </linearGradient>
+          <linearGradient id="barclaysGlass" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stop-color="#0284c7" />
+            <stop offset="50%" stop-color="#0369a1" />
+            <stop offset="100%" stop-color="#0f172a" />
+          </linearGradient>
+
+          <!-- Reusable Pine Tree Component -->
+          <g id="pine">
+            <rect x="-2" y="24" width="4" height="8" fill="#78350f" />
+            <polygon points="0,0 -11,14 11,14" fill="#15803d" />
+            <polygon points="0,7 -13,21 13,21" fill="#166534" />
+            <polygon points="0,14 -15,27 15,27" fill="#14532d" />
+          </g>
+          <g id="pine-sm">
+            <rect x="-1.5" y="18" width="3" height="6" fill="#78350f" />
+            <polygon points="0,0 -8,11 8,11" fill="#22c55e" />
+            <polygon points="0,5 -10,16 10,16" fill="#15803d" />
+            <polygon points="0,10 -12,21 12,21" fill="#166534" />
+          </g>
+        </defs>
+
+        <!-- 1. DISTANT SNOWY MOUNTAIN RANGE -->
+        <polygon points="0,275 0,145 95,78 210,158 340,68 480,162 640,58 785,148 920,50 1085,158 1230,65 1380,152 1510,80 1600,138 1600,275" fill="url(#mtnBack)" opacity="0.85" />
+        <!-- Snow Ridge Highlights -->
+        <polygon points="95,78 135,105 110,111 95,95 75,108" fill="#ffffff" opacity="0.7" />
+        <polygon points="340,68 385,101 355,108 340,88 315,105" fill="#ffffff" opacity="0.7" />
+        <polygon points="640,58 695,98 660,105 640,81 610,101" fill="#ffffff" opacity="0.75" />
+        <polygon points="920,50 975,94 940,102 920,74 885,97" fill="#ffffff" opacity="0.75" />
+        <polygon points="1230,65 1280,103 1245,109 1230,85 1198,103" fill="#ffffff" opacity="0.7" />
+
+        <!-- Midground Mountain Layer -->
+        <polygon points="0,285 60,170 185,118 310,188 455,108 595,192 755,100 890,182 1045,105 1190,188 1345,115 1485,185 1600,130 1600,285" fill="url(#mtnMid)" opacity="0.75" />
+
+        <!-- 2. FOOTHILLS & LUSH GREEN VALLEY -->
+        <path d="M0,255 Q180,210 360,250 T740,235 T1120,250 T1460,230 L1600,250 L1600,355 L0,355 Z" fill="url(#hillGreen)" />
+        <path d="M0,282 Q260,240 520,280 T1040,270 T1600,282 L1600,355 L0,355 Z" fill="url(#sandVerge)" />
+
+        <!-- 3. BACKGROUND PINE TREE CLUSTERS -->
+        <use href="#pine" x="28" y="232" />
+        <use href="#pine-sm" x="48" y="240" />
+        <use href="#pine" x="64" y="229" />
+        <use href="#pine-sm" x="172" y="239" />
+        <use href="#pine" x="192" y="226" />
+        <use href="#pine-sm" x="215" y="236" />
+        <use href="#pine" x="315" y="232" />
+        <use href="#pine-sm" x="336" y="242" />
+        <use href="#pine" x="455" y="224" />
+        <use href="#pine-sm" x="478" y="234" />
+        <use href="#pine" x="545" y="226" />
+        <use href="#pine-sm" x="568" y="236" />
+        <use href="#pine" x="688" y="229" />
+        <use href="#pine-sm" x="712" y="239" />
+        <use href="#pine" x="805" y="226" />
+        <use href="#pine-sm" x="828" y="238" />
+        <use href="#pine" x="1005" y="224" />
+        <use href="#pine-sm" x="1028" y="236" />
+        <use href="#pine" x="1155" y="228" />
+        <use href="#pine-sm" x="1178" y="238" />
+        <use href="#pine" x="1455" y="224" />
+        <use href="#pine" x="1482" y="230" />
+        <use href="#pine-sm" x="1508" y="238" />
+
+        <!-- =================================================================
+             4. Winding asphalt road (behind landmarks so buildings remain unobstructed)
+             ================================================================= -->
+        <!-- Road Outer Shoulder / Border -->
+        <path d="M 60,318 C 145,318 185,245 265,245 C 345,245 375,313 440,313 C 505,313 535,243 600,243 C 665,243 695,313 765,313 C 835,313 865,251 935,251 C 1005,251 1035,311 1105,311 C 1175,311 1210,245 1285,245 C 1360,245 1425,318 1545,318" transform="translate(0 24)"
+              fill="none" stroke="#94a3b8" stroke-width="34" stroke-linecap="round" />
+
+        <!-- Dark Asphalt Road Base -->
+        <path d="M 60,318 C 145,318 185,245 265,245 C 345,245 375,313 440,313 C 505,313 535,243 600,243 C 665,243 695,313 765,313 C 835,313 865,251 935,251 C 1005,251 1035,311 1105,311 C 1175,311 1210,245 1285,245 C 1360,245 1425,318 1545,318" transform="translate(0 24)"
+              fill="none" stroke="#1e293b" stroke-width="28" stroke-linecap="round" />
+
+        <!-- Continuous Side Edge Lines -->
+        <path d="M 60,318 C 145,318 185,245 265,245 C 345,245 375,313 440,313 C 505,313 535,243 600,243 C 665,243 695,313 765,313 C 835,313 865,251 935,251 C 1005,251 1035,311 1105,311 C 1175,311 1210,245 1285,245 C 1360,245 1425,318 1545,318" transform="translate(0 24)"
+              fill="none" stroke="#cbd5e1" stroke-width="22" stroke-linecap="round" opacity="0.22" />
+
+        <!-- Inner Asphalt Core -->
+        <path d="M 60,318 C 145,318 185,245 265,245 C 345,245 375,313 440,313 C 505,313 535,243 600,243 C 665,243 695,313 765,313 C 835,313 865,251 935,251 C 1005,251 1035,311 1105,311 C 1175,311 1210,245 1285,245 C 1360,245 1425,318 1545,318" transform="translate(0 24)"
+              fill="none" stroke="#1e293b" stroke-width="19" stroke-linecap="round" />
+
+        <!-- Animated White Center Dashed Line -->
+        <path class="road-center-dashes"
+              d="M 60,318 C 145,318 185,245 265,245 C 345,245 375,313 440,313 C 505,313 535,243 600,243 C 665,243 695,313 765,313 C 835,313 865,251 935,251 C 1005,251 1035,311 1105,311 C 1175,311 1210,245 1285,245 C 1360,245 1425,318 1545,318" transform="translate(0 24)"
+              fill="none" stroke="#ffffff" stroke-width="2.2" stroke-dasharray="14 14" stroke-linecap="round" />
+
+
+        <!-- =================================================================
+             4. FIVE ARCHITECTURAL LANDMARKS (1 PER STAGE - UNIFIED BARCLAYS)
+             ================================================================= -->
+
+        <!-- STAGE 1 LANDMARK: Real KV School campus image -->
+        <image data-local-image="Images/KV_School" href="Images/KV_School.png"
+               x="28" y="177" width="168" height="110"
+               preserveAspectRatio="xMidYMax meet" />
+
+        <!-- STAGE 2 LANDMARK: IIT preparation centre (Resonance) -->
+        <image data-local-image="Images/IIT_Prep" href="Images/IIT_Prep.png"
+               x="294" y="178" width="190" height="112"
+               preserveAspectRatio="xMidYMax meet" />
+
+        <!-- STAGE 3 LANDMARK: Real LPU campus image -->
+        <image data-local-image="Images/LPU" href="Images/LPU.png"
+               x="568" y="174" width="136" height="112"
+               preserveAspectRatio="xMidYMax meet" />
+
+        <!-- STAGE 4 LANDMARK: Real DTU campus image -->
+        <image data-local-image="Images/DTU" href="Images/DTU.png"
+               x="833" y="158" width="160" height="128"
+               preserveAspectRatio="xMidYMax meet" />
+
+        <!-- STAGE 5 LANDMARK: Real Barclays Noida campus image -->
+        <image data-local-image="Images/barclays" href="Images/barclays.png"
+               x="1185" y="143" width="265" height="145"
+               preserveAspectRatio="xMidYMax meet" />
+
+        <!-- =================================================================
+             5. VERTICAL POINTER LINES & COLORED TEARDROP PINS (LOCKED TO LANDMARKS)
+             ================================================================= -->
+
+        <!-- Pin 1: Red (Schooling at x=112) -->
+        <g class="pin-marker">
+          <line x1="112" y1="78" x2="112" y2="188" stroke="#64748b" stroke-width="1.4" />
+          <path d="M112,78 C103,66 99,58 99,51 A13,13 0 1,1 125,51 C125,58 121,66 112,78 Z" fill="#ef4444" stroke="#ffffff" stroke-width="2" />
+          <circle cx="112" cy="51" r="5" fill="#ffffff" />
+        </g>
+
+        <!-- Pin 2: Blue (IIT JEE Preparation at x=382) -->
+        <g class="pin-marker" style="animation-delay: 0.4s">
+          <line x1="382" y1="78" x2="382" y2="222" stroke="#64748b" stroke-width="1.4" />
+          <path d="M382,78 C373,66 369,58 369,51 A13,13 0 1,1 395,51 C395,58 391,66 382,78 Z" fill="#0875ff" stroke="#ffffff" stroke-width="2" />
+          <circle cx="382" cy="51" r="5" fill="#ffffff" />
+        </g>
+
+        <!-- Pin 3: Dark Navy (BTech Computer Science at x=635) -->
+        <g class="pin-marker" style="animation-delay: 0.8s">
+          <line x1="635" y1="78" x2="635" y2="184" stroke="#64748b" stroke-width="1.4" />
+          <path d="M635,78 C626,66 622,58 622,51 A13,13 0 1,1 648,51 C648,58 644,66 635,78 Z" fill="#0f172a" stroke="#ffffff" stroke-width="2" />
+          <circle cx="635" cy="51" r="5" fill="#ffffff" />
+        </g>
+
+        <!-- Pin 4: Emerald Green (MTech in AI DTU at x=913) -->
+        <g class="pin-marker" style="animation-delay: 1.2s">
+          <line x1="913" y1="68" x2="913" y2="150" stroke="#64748b" stroke-width="1.4" />
+          <path d="M913,68 C904,56 900,48 900,41 A13,13 0 1,1 926,41 C926,48 922,56 913,68 Z" fill="#10b981" stroke="#ffffff" stroke-width="2" />
+          <circle cx="913" cy="41" r="5" fill="#ffffff" />
+        </g>
+
+        <!-- Pin 5: Orange role marker aligned with the main Barclays tower -->
+        <g class="pin-marker" style="animation-delay: 1.6s">
+          <line x1="1396" y1="78" x2="1396" y2="160" stroke="#64748b" stroke-width="1.4" />
+          <path d="M1396,78 C1387,66 1383,58 1383,51 A13,13 0 1,1 1409,51 C1409,58 1405,66 1396,78 Z" fill="#f59e0b" stroke="#ffffff" stroke-width="2" />
+          <circle cx="1396" cy="51" r="5" fill="#ffffff" />
+        </g>
+
+        <!-- =================================================================
+             6. FIVE MILESTONE TEXT BLOCKS (LOCKED TO RIGHT OF EACH PIN - ZERO OVERLAP!)
+             ================================================================= -->
+
+        <!-- Text 1: Schooling (Starts at x=134, safely to the right of Red Pin at x=112) -->
+        <foreignObject x="134" y="32" width="215" height="115">
+          <div xmlns="http://www.w3.org/1999/xhtml" class="font-sans">
+            <h3 class="font-display text-[15px] font-extrabold text-[#0b1e43] dark:text-white leading-tight m-0">Schooling(PCM)</h3>
+            <p class="text-[13px] font-bold text-[#1e293b] dark:text-slate-200 leading-tight mt-0.5 m-0">Kendriya Vidyalaya No. 2, Itanagar</p>
+            <p class="text-[13px] font-bold text-[#1e293b] dark:text-slate-200 mt-0.5 mb-1">2017</p>
+            <p class="text-[12px] text-[#475569] dark:text-slate-300 leading-[1.35] m-0">
+              Built a strong foundation in Computer Science and with PCM.
+            </p>
+          </div>
+        </foreignObject>
+
+        <!-- Text 2: IIT JEE Preparation (Starts at x=404, safely to the right of Blue Pin at x=382) -->
+        <foreignObject x="404" y="32" width="205" height="115">
+          <div xmlns="http://www.w3.org/1999/xhtml" class="font-sans">
+            <h3 class="font-display text-[15px] font-extrabold text-[#0b1e43] dark:text-white leading-tight m-0">IIT JEE Preparation</h3>
+            <p class="text-[13px] font-bold text-[#1e293b] dark:text-slate-200 leading-tight mt-0.5 m-0">Resonance, Kota</p>
+            <p class="text-[13px] font-bold text-[#1e293b] dark:text-slate-200 mt-0.5 mb-1">2017-18</p>
+            <p class="text-[12px] text-[#475569] dark:text-slate-300 leading-[1.35] m-0">
+              Self-learning and determination.
+            </p>
+          </div>
+        </foreignObject>
+
+        <!-- Text 3: BTech Computer Science (Starts at x=657, safely to the right of Navy Pin at x=635) -->
+        <foreignObject x="657" y="32" width="225" height="115">
+          <div xmlns="http://www.w3.org/1999/xhtml" class="font-sans">
+            <h3 class="font-display text-[15px] font-extrabold text-[#0b1e43] dark:text-white leading-tight m-0">BTech (Computer Science)</h3>
+            <p class="text-[13px] font-bold text-[#1e293b] dark:text-slate-200 leading-tight mt-0.5 m-0">Lovely Professional University, Punjab</p>
+            <p class="text-[13px] font-bold text-[#1e293b] dark:text-slate-200 mt-0.5 mb-1">2018 – 2022</p>
+            <p class="text-[12px] text-[#475569] dark:text-slate-300 leading-[1.35] m-0">
+              Engineering background (basics and foundation).
+            </p>
+          </div>
+        </foreignObject>
+
+        <!-- Text 4: MTech in AI DTU (Starts at x=935, safely to the right of Green Pin at x=913) -->
+        <foreignObject x="935" y="24" width="235" height="115">
+          <div xmlns="http://www.w3.org/1999/xhtml" class="font-sans">
+            <h3 class="font-display text-[15px] font-extrabold text-[#0b1e43] dark:text-white leading-tight m-0">MTech in AI (DTU)</h3>
+            <p class="text-[13px] font-bold text-[#1e293b] dark:text-slate-200 leading-tight mt-0.5 m-0">Delhi Technological University(formerly DCE), Delhi</p>
+            <p class="text-[13px] font-bold text-[#1e293b] dark:text-slate-200 mt-0.5 mb-1">2023 – 2025</p>
+            <p class="text-[12px] text-[#475569] dark:text-slate-300 leading-[1.35] m-0">
+              Deep dive into deep learning and computer vision.
+            </p>
+          </div>
+        </foreignObject>
+
+        <!-- Text 5: Role details sit left of the pin; leader points to Barclays tower -->
+        <foreignObject x="1132" y="32" width="245" height="130">
+          <div xmlns="http://www.w3.org/1999/xhtml" class="font-sans" style="text-align:right">
+            <h3 class="font-display text-[15px] font-extrabold text-[#0b1e43] dark:text-white leading-tight m-0">Analyst – Risk Transformation</h3>
+            <p class="text-[13px] font-bold text-[#1e293b] dark:text-slate-200 leading-tight mt-0.5 m-0">Barclays, Noida</p>
+            <p class="text-[12.5px] font-semibold text-[#334155] dark:text-slate-300 mb-1 m-0">2025 – Present</p>
+            <p class="text-[12px] text-[#475569] dark:text-slate-300 leading-[1.3] m-0">
+              Applying AI/ML and data to real-world business problems.
+            </p>
+          </div>
+        </foreignObject>
+
+        <!-- Foreground Pine Trees in the Road Valleys -->
+        <use href="#pine-sm" x="260" y="281" />
+        <use href="#pine" x="595" y="275" />
+        <use href="#pine-sm" x="935" y="281" />
+        <use href="#pine" x="1285" y="275" />
+      </svg>
+
+      <!-- Mobile / Tablet Responsive Milestone Stack (Shown below md breakpoint so text stays readable on phones) -->
+      <div class="md:hidden px-6 pb-8 pt-2 grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <div class="flex items-start gap-3 p-3.5 rounded-xl bg-slate-50 dark:bg-slate-800/80 border border-slate-200/70 dark:border-slate-700">
+          <span class="w-6 h-6 rounded-full bg-red-500 text-white text-xs font-bold flex items-center justify-center shrink-0 mt-0.5">1</span>
+          <div>
+            <h3 class="font-display text-sm font-extrabold text-navy-900 dark:text-white">Schooling</h3>
+            <p class="text-xs font-bold text-brandBlue">2010 – 2020</p>
+            <p class="text-xs text-muted dark:text-slate-300 mt-1">Built a strong foundation in science and problem solving.</p>
+          </div>
+        </div>
+        <div class="flex items-start gap-3 p-3.5 rounded-xl bg-slate-50 dark:bg-slate-800/80 border border-slate-200/70 dark:border-slate-700">
+          <span class="w-6 h-6 rounded-full bg-brandBlue text-white text-xs font-bold flex items-center justify-center shrink-0 mt-0.5">2</span>
+          <div>
+            <h3 class="font-display text-sm font-extrabold text-navy-900 dark:text-white">IIT JEE Preparation</h3>
+            <p class="text-xs font-bold text-brandBlue">2020 (1 year)</p>
+            <p class="text-xs text-muted dark:text-slate-300 mt-1">Self-learning and determination.</p>
+          </div>
+        </div>
+        <div class="flex items-start gap-3 p-3.5 rounded-xl bg-slate-50 dark:bg-slate-800/80 border border-slate-200/70 dark:border-slate-700">
+          <span class="w-6 h-6 rounded-full bg-slate-900 text-white text-xs font-bold flex items-center justify-center shrink-0 mt-0.5">3</span>
+          <div>
+            <h3 class="font-display text-sm font-extrabold text-navy-900 dark:text-white">BTech (Computer Science)</h3>
+            <p class="text-xs font-bold text-brandBlue">2020 – 2022</p>
+            <p class="text-xs text-muted dark:text-slate-300 mt-1">Engineering background (basics and foundation).</p>
+          </div>
+        </div>
+        <div class="flex items-start gap-3 p-3.5 rounded-xl bg-slate-50 dark:bg-slate-800/80 border border-slate-200/70 dark:border-slate-700">
+          <span class="w-6 h-6 rounded-full bg-emerald-500 text-white text-xs font-bold flex items-center justify-center shrink-0 mt-0.5">4</span>
+          <div>
+            <h3 class="font-display text-sm font-extrabold text-navy-900 dark:text-white">MTech in AI (DTU)</h3>
+            <p class="text-xs font-bold text-brandBlue">2022 – 2024</p>
+            <p class="text-xs text-muted dark:text-slate-300 mt-1">Deep dive into machine learning and computer vision.</p>
+          </div>
+        </div>
+        <div class="flex items-start gap-3 p-3.5 rounded-xl bg-slate-50 dark:bg-slate-800/80 border border-slate-200/70 dark:border-slate-700 sm:col-span-2">
+          <span class="w-6 h-6 rounded-full bg-amber-500 text-white text-xs font-bold flex items-center justify-center shrink-0 mt-0.5">5</span>
+          <div>
+            <h3 class="font-display text-sm font-extrabold text-navy-900 dark:text-white">Analyst – Risk Transformation (Barclays, Noida)</h3>
+            <p class="text-xs font-bold text-brandBlue">July 2025 – Present</p>
+            <p class="text-xs text-muted dark:text-slate-300 mt-1">Applying AI/ML and data to real-world business problems.</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ==========================================
+       LIGHTBOX MODAL FOR PAPER & CERTIFICATE
+       ========================================== -->
+  <div id="lightbox-modal" onclick="closeLightbox()" class="fixed inset-0 z-50 hidden bg-slate-950/80 backdrop-blur-sm flex items-center justify-center p-4">
+    <div class="relative max-w-3xl w-full bg-white dark:bg-slate-900 rounded-2xl p-4 shadow-2xl border border-slate-200 dark:border-slate-700" onclick="event.stopPropagation()">
+      <div class="flex items-center justify-between gap-3 pb-3 border-b border-slate-100 dark:border-slate-800">
+        <h3 id="lightbox-title" class="font-display text-sm font-bold text-slate-800 dark:text-slate-100">Document Preview</h3>
+        <button onclick="closeLightbox()" aria-label="Close preview" class="p-1 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-500 shrink-0">
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+      </div>
+      <div class="mt-4 flex justify-center">
+        <img id="lightbox-img" src="" alt="Preview" class="max-h-[76vh] max-w-full w-auto object-contain rounded-lg" />
+      </div>
+      <div class="mt-4 flex justify-end gap-2">
+        <a id="lightbox-verify" href="#" target="_blank" rel="noopener noreferrer" class="hidden inline-flex items-center gap-2 bg-navy-800 hover:bg-navy-900 text-white text-xs font-semibold px-4 py-2.5 rounded-lg shadow-sm transition">
+          Verify certificate <i data-lucide="external-link" class="w-3.5 h-3.5"></i>
+        </a>
+      </div>
+    </div>
+  </div>
+
+
+
+  <!-- Minimal footer / bottom border -->
+  <footer id="contact" class="border-t border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-950">
+    <div class="max-w-[1560px] mx-auto px-6 lg:px-12 py-5 flex flex-col sm:flex-row items-center justify-between gap-3">
+      <div class="text-center sm:text-left">
+        <p class="font-display text-base font-extrabold tracking-tight text-navy-900 dark:text-white">Sudeep<span class="text-brandBlue">.</span></p>
+        <p class="text-[11px] text-slate-500 dark:text-slate-400">AI Research · Technology · Impact</p>
+      </div>
+      <div class="flex items-center gap-4 text-xs font-semibold text-slate-600 dark:text-slate-300">
+        <a href="https://www.linkedin.com/in/sudeep-acharjee/" target="_blank" rel="noopener noreferrer" class="hover:text-brandBlue transition inline-flex items-center gap-1.5"><i data-lucide="linkedin" class="w-4 h-4"></i> LinkedIn ↗</a>
+        <a href="https://github.com/" target="_blank" rel="noopener noreferrer" class="hover:text-brandBlue transition inline-flex items-center gap-1.5"><i data-lucide="github" class="w-4 h-4"></i> GitHub ↗</a>
+        <a href="mailto:" class="hover:text-brandBlue transition inline-flex items-center gap-1.5" title="Add your email address to this link"><i data-lucide="mail" class="w-4 h-4"></i> Email ↗</a>
+      </div>
+      <p class="text-[10px] text-slate-400">Made with lot of prompts and vibe coding ☕</p>
+    </div>
+  </footer>
+
+
+  <!-- ==========================================
+       JAVASCRIPT: INTERACTIVITY, SCROLL REVEAL & ICONS
+       ========================================== -->
+  <script>
+    // Navigation scroll-spy: underline follows the currently visible section.
+    (() => {
+      const nav = document.getElementById('top-nav');
+      if (!nav) return;
+      const links = [...nav.querySelectorAll('[data-nav-link]')];
+      const sections = links
+        .map(link => document.querySelector(link.getAttribute('href')))
+        .filter(Boolean);
+
+      function setActive(id) {
+        links.forEach(link => {
+          const active = link.getAttribute('href') === `#${id}`;
+          link.classList.toggle('is-active', active);
+          if (active) link.setAttribute('aria-current', 'location');
+          else link.removeAttribute('aria-current');
+        });
+      }
+
+      function updateActiveSection() {
+        const marker = 100;
+        let activeSection = sections[0];
+        for (const section of sections) {
+          const rect = section.getBoundingClientRect();
+          if (rect.top <= marker && rect.bottom > marker) activeSection = section;
+        }
+        if (activeSection) setActive(activeSection.id);
+      }
+
+      links.forEach(link => link.addEventListener('click', () => {
+        setActive(link.getAttribute('href').slice(1));
+      }));
+      window.addEventListener('scroll', updateActiveSection, { passive: true });
+      window.addEventListener('resize', updateActiveSection);
+      updateActiveSection();
+    })();
+
+    // Initialize Lucide icons
+    lucide.createIcons();
+
+    // 1. Scroll Reveal IntersectionObserver
+    const revealElements = document.querySelectorAll('.reveal');
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, {
+      threshold: 0.1,
+      rootMargin: '0px 0px -20px 0px'
+    });
+
+    revealElements.forEach(el => revealObserver.observe(el));
+
+    window.addEventListener('DOMContentLoaded', () => {
+      setTimeout(() => {
+        revealElements.forEach(el => {
+          const rect = el.getBoundingClientRect();
+          if (rect.top < window.innerHeight) {
+            el.classList.add('visible');
+          }
+        });
+      }, 100);
+    });
+
+    // 2. Copy DOI to Clipboard
+    function copyDOI() {
+      const doiText = document.getElementById('doi-value').innerText;
+      const copyBtnText = document.getElementById('copy-doi-text');
+      
+      navigator.clipboard.writeText(doiText).then(() => {
+        copyBtnText.innerText = 'Copied!';
+        setTimeout(() => {
+          copyBtnText.innerText = 'Copy DOI';
+        }, 2000);
+      });
+    }
+
+    // 3. Horizontal Carousel Scroll Helper
+    function scrollCarousel(elementId, amount) {
+      const container = document.getElementById(elementId);
+      if (container) {
+        container.scrollBy({ left: amount, behavior: 'smooth' });
+      }
+    }
+
+    // 3a. Certification pagination is generated only when cards overflow.
+    (() => {
+      const carousel = document.getElementById('cert-carousel');
+      const dotsWrap = document.getElementById('cert-dots');
+      if (!carousel || !dotsWrap) return;
+
+      let pageCount = 0;
+
+      function renderCertificationDots() {
+        const maxScroll = Math.max(0, carousel.scrollWidth - carousel.clientWidth);
+        const needsPagination = maxScroll > 4;
+        dotsWrap.innerHTML = '';
+        dotsWrap.classList.toggle('hidden', !needsPagination);
+        dotsWrap.classList.toggle('flex', needsPagination);
+
+        if (!needsPagination) {
+          pageCount = 0;
+          return;
+        }
+
+        pageCount = Math.max(1, Math.ceil(carousel.scrollWidth / carousel.clientWidth));
+        for (let i = 0; i < pageCount; i++) {
+          const dot = document.createElement('button');
+          dot.type = 'button';
+          dot.className = 'h-1.5 rounded-full transition-all duration-200 bg-slate-300 dark:bg-slate-700';
+          dot.style.width = i === 0 ? '18px' : '6px';
+          dot.setAttribute('aria-label', `Go to certification page ${i + 1}`);
+          dot.addEventListener('click', () => {
+            carousel.scrollTo({
+              left: Math.min(i * carousel.clientWidth, maxScroll),
+              behavior: 'smooth'
+            });
+          });
+          dotsWrap.appendChild(dot);
+        }
+        updateCertificationDots();
+      }
+
+      function updateCertificationDots() {
+        if (!pageCount) return;
+        const maxScroll = Math.max(1, carousel.scrollWidth - carousel.clientWidth);
+        const activeIndex = Math.min(
+          pageCount - 1,
+          Math.round((carousel.scrollLeft / maxScroll) * (pageCount - 1))
+        );
+        [...dotsWrap.children].forEach((dot, i) => {
+          dot.style.width = i === activeIndex ? '18px' : '6px';
+          dot.classList.toggle('bg-brandBlue', i === activeIndex);
+          dot.classList.toggle('bg-slate-300', i !== activeIndex);
+          dot.classList.toggle('dark:bg-slate-700', i !== activeIndex);
+        });
+      }
+
+      carousel.addEventListener('scroll', updateCertificationDots, { passive: true });
+      window.addEventListener('resize', renderCertificationDots);
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', renderCertificationDots, { once: true });
+      } else {
+        renderCertificationDots();
+      }
+      setTimeout(renderCertificationDots, 250);
+    })();
+
+    // 4. Dark Mode Toggle
+    const themeToggleBtn = document.getElementById('theme-toggle');
+    themeToggleBtn.addEventListener('click', () => {
+      document.documentElement.classList.toggle('dark');
+    });
+
+    // 5. Lightbox for paper, award and individual certificates.
+    function openLightbox(src, title, verifyUrl = '') {
+      const modal = document.getElementById('lightbox-modal');
+      const img = document.getElementById('lightbox-img');
+      const titleEl = document.getElementById('lightbox-title');
+      const verify = document.getElementById('lightbox-verify');
+      img.src = src;
+      img.alt = title;
+      titleEl.innerText = title;
+      if (verifyUrl) {
+        verify.href = verifyUrl;
+        verify.classList.remove('hidden');
+        verify.classList.add('inline-flex');
+      } else {
+        verify.removeAttribute('href');
+        verify.classList.add('hidden');
+        verify.classList.remove('inline-flex');
+      }
+      modal.classList.remove('hidden');
+      document.body.style.overflow = 'hidden';
+      if (window.lucide) lucide.createIcons();
+    }
+    function closeLightbox() {
+      document.getElementById('lightbox-modal').classList.add('hidden');
+      document.getElementById('lightbox-img').src = '';
+      document.body.style.overflow = '';
+    }
+
+    // Certificate cards: click or press Enter/Space to preview. Replace the temporary
+    // Images/Certi.jpeg path and provider homepage URLs with each certificate's own file/verification URL.
+    document.querySelectorAll('[data-cert-title]').forEach(card => {
+      const open = () => openLightbox(card.dataset.certImage, card.dataset.certTitle, card.dataset.verifyUrl);
+      card.addEventListener('click', open);
+      card.addEventListener('keydown', event => {
+        if (event.key === 'Enter' || event.key === ' ') {
+          event.preventDefault();
+          open();
+        }
+      });
+    });
+    document.addEventListener('keydown', event => {
+      if (event.key === 'Escape') closeLightbox();
+    });
+  </script>
+
+  <script>
+    // Resolve local images from the sibling Images folder even if Windows hides extensions.
+    // Supported extensions: PNG, WEBP, JPG and JPEG.
+    (function () {
+      const extensions = ['png', 'webp', 'jpg', 'jpeg'];
+      document.querySelectorAll('[data-local-image]').forEach((el) => {
+        const base = el.getAttribute('data-local-image');
+        let index = 0;
+        const applyCandidate = () => {
+          if (index >= extensions.length) {
+            el.style.display = 'none';
+            return;
+          }
+          const candidate = base + '.' + extensions[index++];
+          if (el.tagName.toLowerCase() === 'image') {
+            el.setAttribute('href', candidate);
+            el.setAttributeNS('http://www.w3.org/1999/xlink', 'xlink:href', candidate);
+          } else {
+            el.src = candidate;
+          }
+        };
+        el.addEventListener('error', applyCandidate);
+        applyCandidate();
+      });
+    })();
+  </script>
+
+</body>
+</html>
